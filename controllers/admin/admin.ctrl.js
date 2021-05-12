@@ -2,9 +2,18 @@
 const db = require('../../models');
 
 exports.get_products = ( _ , res) => {
-    res.render('admin/products.html',
-        { message : "hello"}
-    );
+    // res.render('admin/products.html',
+    //     { message : "hello"}
+    // );
+
+    db.Products.findAll({
+
+    }).then((productList) => {
+        res.render('admin/products.html', {
+            // productList : productList
+            productList     // key = value 면 하나만 적어도 됌
+        })
+    });
 }
 
 exports.get_products_write = (req, res) => {
