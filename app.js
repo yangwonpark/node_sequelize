@@ -78,7 +78,7 @@ class App {
 
     status404() {
         this.app.use(( req, res, _ ) => {
-            res.stats(404).render('common/404.html');
+            res.status(404).render('common/404.html');
         });
     }
 

@@ -41,3 +41,19 @@ exports.get_products_detail = ( req , res ) => {
         res.render('admin/detail.html', { product: product });  
     });
 };
+
+exports.get_products_edit = (req, res) => {
+    db.Products.findByPk(req.params.id).then( (product) => {
+        res.render('admin/write.html', { product });
+    });
+}
+
+exports.post_products_edit = (req, res) => {
+    db.Products.update(
+        req.body                            // Data
+    , {
+        where: { id : req.params.id }       // 조건
+    }).then(() => {
+        res.redirect('/admin/products/detail/' + req.params.id);
+    })
+}
