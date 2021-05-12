@@ -1,6 +1,8 @@
 // 컨트롤러 역할
 const db = require('../../models');
 
+// 밑에 나오는 Products는 models/Products.js 에서 sequelize.defint('Products')(Products)와 일치한다
+
 exports.get_products = ( _ , res) => {
     // res.render('admin/products.html',
     //     { message : "hello"}
@@ -8,10 +10,10 @@ exports.get_products = ( _ , res) => {
 
     db.Products.findAll({
 
-    }).then((productList) => {
+    }).then((products) => {
         res.render('admin/products.html', {
-            // productList : productList
-            productList     // key = value 면 하나만 적어도 됌
+            // products : products
+            products     // key = value 면 하나만 적어도 됌
         })
     });
 }
@@ -33,3 +35,9 @@ exports.post_products_write = (req, res) => {
     //     res.redirect('/admin/products');
     // });
 }
+
+exports.get_products_detail = ( req , res ) => {
+    db.Products.findByPk(req.params.id).then( (product) => {
+        res.render('admin/detail.html', { product: product });  
+    });
+};
