@@ -40,6 +40,7 @@ class App {
         })
         .then(() => {
             console.log('DB Sync complete.');
+            // return db.sequelize.sync();         // sequelize.sync() : Sequelize가 초기화 될 때 DB에 필요한 테이블을 생성하는 함수
         })
         .catch(err => {
             console.log('Unable to connect to the database:', err);

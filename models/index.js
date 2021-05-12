@@ -20,16 +20,18 @@ const sequelize = new Sequelize(process.env.DATABASE,
 
 let db = [];
 
+// index.js를 제외하고 모든 js 파일을 싱크를 걸어서 table을 생성
 fs.readdirSync(__dirname)
     .filter(file => {
-        return file.indexOf('.js')&& file !== 'index.js'
+        return file.indexOf('.js')&& file !== 'index.js'        
     })
     .forEach(file => {
         let model = sequelize.import(path.join(__dirname, file));
         db[model.name] = model;
     });
 
-Object.keys(db).forEach(modelName => {
+// 외래키 세팅해주는 부분
+Object.keys(db).forEach(modelName => {                          
     if("associate" in db[modelName]){
         db[modelName].associate(db);
     }
